@@ -38,6 +38,8 @@ export default function ViewFIRModal({ fir }: Props) {
     const [open, setOpen] = useState(false);
     const [summary, setSummary] = useState("");
     const [loadingSummary, setLoadingSummary] = useState(false);
+    const [insights, setInsights] = useState<any>(null);
+    const [loadingInsights, setLoadingInsights] = useState(false);
 
     const generateSummary = async () => {
         try {
@@ -61,6 +63,25 @@ export default function ViewFIRModal({ fir }: Props) {
             alert("Failed to generate AI summary.");
         } finally {
             setLoadingSummary(false);
+        }
+    };
+    const generateInsights = async () => {
+        try {
+            setLoadingInsights(true);
+
+            const response = await api.post("/investigation/insights", {
+                crime: fir.crime,
+                district: fir.district,
+                priority: fir.priority,
+            });
+
+            setInsights(response.data);
+
+        } catch (err) {
+            console.error(err);
+            alert("Failed to generate investigation insights.");
+        } finally {
+            setLoadingInsights(false);
         }
     };
     return (
@@ -206,7 +227,17 @@ export default function ViewFIRModal({ fir }: Props) {
                                         ? "Generating AI Summary..."
                                         : "🤖 Generate AI Summary"}
                                 </button>
+                                <hr className="my-6" />
 
+                                <button
+                                    onClick={generateInsights}
+                                    disabled={loadingInsights}
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400 text-white py-3 rounded-lg"
+                                >
+                                    {loadingInsights
+                                        ? "Generating Investigation Insights..."
+                                        : "🕵 Generate Investigation Insights"}
+                                </button>
                                 {summary && (
                                     <div className="mt-4 bg-purple-50 border border-purple-200 rounded-xl p-4">
                                         <h3 className="text-lg font-semibold text-purple-700 mb-2">
@@ -216,6 +247,49 @@ export default function ViewFIRModal({ fir }: Props) {
                                         <p className="text-gray-700 leading-7">
                                             {summary}
                                         </p>
+                                    </div>
+                                )}
+                                {insights && (
+                                    <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+
+                                        <h3 className="text-lg font-semibold text-indigo-700 mb-3">
+                                            AI Investigation Insights
+                                        </h3>
+
+                                        <p>
+                                            <strong>Risk Level:</strong> {insights.risk}
+                                        </p>
+
+                                        <div className="mt-3">
+                                            <strong>Applicable IPC Sections</strong>
+
+                                            <ul className="list-disc ml-6 mt-2">
+                                                {insights.ipc.map((ipc: string) => (
+                                                    <li key={ipc}>{ipc}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        <div className="mt-3">
+                                            <strong>Recommended Units</strong>
+
+                                            <ul className="list-disc ml-6 mt-2">
+                                                {insights.units.map((unit: string) => (
+                                                    <li key={unit}>{unit}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        <div className="mt-3">
+                                            <strong>Investigation Steps</strong>
+
+                                            <ul className="list-disc ml-6 mt-2">
+                                                {insights.steps.map((step: string) => (
+                                                    <li key={step}>{step}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
                                     </div>
                                 )}
 

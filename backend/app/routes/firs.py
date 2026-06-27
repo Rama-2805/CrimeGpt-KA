@@ -90,19 +90,19 @@ def update_fir(
             detail="FIR number already exists."
         )
 
-        fir.fir = fir_number
-        fir.crime = updated.crime
-        fir.district = updated.district
-        fir.police_station = updated.police_station
-        fir.address = updated.address
-        fir.latitude = updated.latitude
-        fir.longitude = updated.longitude
-        fir.priority = updated.priority
-        fir.status = updated.status
-        fir.evidence = updated.evidence
-        fir.date = updated.date
+    fir.fir = fir_number
+    fir.crime = updated.crime
+    fir.district = updated.district
+    fir.police_station = updated.police_station
+    fir.address = updated.address
+    fir.latitude = updated.latitude
+    fir.longitude = updated.longitude
+    fir.priority = updated.priority
+    fir.status = updated.status
+    fir.evidence = updated.evidence
+    fir.date = updated.date
 
-        db.commit()
-        db.refresh(fir)
+    db.commit()
+    db.refresh(fir)
 
-        return fir
+    return fir

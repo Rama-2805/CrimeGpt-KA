@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 router = APIRouter(
     prefix="/investigation",
-    tags=["AI Investigation"]
+    tags=["AI Investigation"],
 )
 
 
@@ -16,31 +16,57 @@ class InvestigationRequest(BaseModel):
 @router.post("/insights")
 def investigation_insights(data: InvestigationRequest):
 
-    if data.crime.lower() == "robbery":
-        ipc = ["392 IPC", "394 IPC"]
+    crime = data.crime.lower()
+
+    if crime == "robbery":
+        ipc = ["IPC 392", "IPC 394"]
+        units = ["Local Police", "Crime Branch"]
         steps = [
             "Collect CCTV footage",
-            "Interview witnesses",
-            "Search nearby vehicles",
-            "Check previous robbery FIRs"
+            "Interview nearby witnesses",
+            "Check nearby shops",
+            "Search previous robbery FIRs",
         ]
-    elif data.crime.lower() == "murder":
-        ipc = ["302 IPC"]
+
+    elif crime == "theft":
+        ipc = ["IPC 379"]
+        units = ["Local Police"]
+        steps = [
+            "Collect fingerprints",
+            "Check CCTV footage",
+            "Verify stolen property details",
+        ]
+
+    elif crime == "murder":
+        ipc = ["IPC 302"]
+        units = ["Crime Branch", "Forensic Team"]
         steps = [
             "Secure crime scene",
             "Collect forensic evidence",
-            "Postmortem examination",
-            "Interview suspects"
+            "Conduct postmortem",
+            "Identify suspects",
         ]
+
+    elif crime == "cyber crime":
+        ipc = ["IT Act", "IPC 420"]
+        units = ["Cyber Crime Cell"]
+        steps = [
+            "Freeze suspicious accounts",
+            "Collect digital evidence",
+            "Trace IP addresses",
+        ]
+
     else:
-        ipc = ["Relevant IPC"]
+        ipc = ["Applicable IPC"]
+        units = ["Local Police"]
         steps = [
             "Collect evidence",
-            "Interview witnesses"
+            "Interview witnesses",
         ]
 
     return {
         "risk": data.priority,
         "ipc": ipc,
-        "steps": steps
+        "units": units,
+        "steps": steps,
     }

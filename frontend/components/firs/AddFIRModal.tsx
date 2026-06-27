@@ -131,6 +131,10 @@ export default function AddFIRModal({ onSuccess }: Props) {
 
                 evidenceUrl = upload.data.url;
             }
+            console.log({
+                ...form,
+                evidence: evidenceUrl,
+            });
 
             await createFIR({
                 ...form,

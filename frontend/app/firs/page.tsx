@@ -207,6 +207,15 @@ export default function FIRPage() {
                                         />
 
                                         <button
+                                            onClick={() =>
+                                                window.location.href = `/investigation/${fir.id}`
+                                            }
+                                            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-lg"
+                                        >
+                                            Investigate
+                                        </button>
+
+                                        <button
                                             className="text-red-600"
                                             onClick={async () => {
 
