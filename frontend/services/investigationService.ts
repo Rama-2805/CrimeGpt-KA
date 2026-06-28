@@ -1,5 +1,5 @@
 import api from "./api";
-import { useState } from "react";
+
 export interface Investigation {
     id?: number;
     fir_id: number;

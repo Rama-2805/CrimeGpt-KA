@@ -82,15 +82,15 @@ export default function FIRPage() {
 
         <DashboardLayout>
 
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-8">
 
                 <div>
 
-                    <h1 className="text-3xl font-bold">
+                    <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
                         FIR Management
                     </h1>
 
-                    <p className="text-gray-500">
+                    <p className="text-slate-500 dark:text-slate-400 mt-1">
                         Create, update and manage FIR records.
                     </p>
 
@@ -107,50 +107,61 @@ export default function FIRPage() {
                     placeholder="Search FIR / Crime / District..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="border rounded-lg px-4 py-2 w-96"
+                    className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-4 py-2 w-96 outline-none focus:border-blue-500 placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 />
 
                 <select
                     value={districtFilter}
                     onChange={(e) => setDistrictFilter(e.target.value)}
-                    className="border rounded-lg px-4 py-2"
+                    className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-4 py-2 outline-none focus:border-blue-500 cursor-pointer"
                 >
                     {districts.map((district) => (
-                        <option key={district}>
-                            {district}
+                        <option key={district} className="bg-white dark:bg-slate-950" value={district}>
+                            {district === "All" ? "All Districts" : district}
                         </option>
                     ))}
+                </select>
+
+                <select
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                    className="border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg px-4 py-2 outline-none focus:border-blue-500 cursor-pointer"
+                >
+                    <option value="All" className="bg-white dark:bg-slate-955">All Statuses</option>
+                    <option value="Open" className="bg-white dark:bg-slate-955">Open</option>
+                    <option value="Investigating" className="bg-white dark:bg-slate-955">Investigating</option>
+                    <option value="Closed" className="bg-white dark:bg-slate-955">Closed</option>
                 </select>
 
             </div>
 
             {/* Table */}
 
-            <div className="bg-white rounded-xl shadow border overflow-hidden">
+            <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm dark:shadow-md overflow-hidden">
 
                 <table className="w-full">
 
-                    <thead className="bg-slate-100">
+                    <thead className="bg-slate-100/70 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800">
 
                         <tr>
 
-                            <th className="text-left p-4">FIR</th>
+                            <th className="text-left p-4 text-slate-600 dark:text-slate-350 font-semibold text-sm">FIR</th>
 
-                            <th className="text-left p-4">Crime</th>
+                            <th className="text-left p-4 text-slate-600 dark:text-slate-350 font-semibold text-sm">Crime</th>
 
-                            <th className="text-left p-4">District</th>
+                            <th className="text-left p-4 text-slate-600 dark:text-slate-355 font-semibold text-sm">District</th>
 
-                            <th className="text-left p-4">Status</th>
+                            <th className="text-left p-4 text-slate-600 dark:text-slate-355 font-semibold text-sm">Status</th>
 
-                            <th className="text-left p-4">Date</th>
+                            <th className="text-left p-4 text-slate-600 dark:text-slate-355 font-semibold text-sm">Date</th>
 
-                            <th className="text-left p-4">Action</th>
+                            <th className="text-left p-4 text-slate-600 dark:text-slate-355 font-semibold text-sm">Action</th>
 
                         </tr>
 
                     </thead>
 
-                    <tbody>
+                    <tbody className="divide-y divide-slate-200/60 dark:divide-slate-800/50">
 
                         {loading ? (
 
@@ -158,9 +169,22 @@ export default function FIRPage() {
 
                                 <td
                                     colSpan={6}
-                                    className="text-center py-10"
+                                    className="text-center py-10 text-slate-500 dark:text-slate-400"
                                 >
                                     Loading...
+                                </td>
+
+                            </tr>
+
+                        ) : filteredFIRs.length === 0 ? (
+
+                            <tr>
+
+                                <td
+                                    colSpan={6}
+                                    className="text-center py-10 text-slate-500 dark:text-slate-500"
+                                >
+                                    No records found matching filters.
                                 </td>
 
                             </tr>
@@ -171,23 +195,23 @@ export default function FIRPage() {
 
                                 <tr
                                     key={fir.id}
-                                    className="border-t hover:bg-slate-50"
+                                    className="hover:bg-slate-50 dark:hover:bg-slate-800/20 transition"
                                 >
 
-                                    <td className="p-4">{fir.fir}</td>
+                                    <td className="p-4 text-slate-800 dark:text-slate-200 font-semibold">{fir.fir}</td>
 
-                                    <td className="p-4">{fir.crime}</td>
+                                    <td className="p-4 text-slate-600 dark:text-slate-300">{fir.crime}</td>
 
-                                    <td className="p-4">{fir.district}</td>
+                                    <td className="p-4 text-slate-600 dark:text-slate-300">{fir.district}</td>
 
                                     <td className="p-4">
 
                                         <span
-                                            className={`px-3 py-1 rounded-full text-sm ${fir.status === "Open"
-                                                ? "bg-red-100 text-red-700"
+                                            className={`px-3 py-1 rounded-full text-xs font-semibold border ${fir.status === "Open"
+                                                ? "bg-red-100 text-red-600 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20"
                                                 : fir.status === "Closed"
-                                                    ? "bg-green-100 text-green-700"
-                                                    : "bg-yellow-100 text-yellow-700"
+                                                    ? "bg-green-100 text-green-600 border-green-200 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20"
+                                                    : "bg-yellow-100 text-yellow-600 border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20"
                                                 }`}
                                         >
                                             {fir.status}
@@ -195,9 +219,9 @@ export default function FIRPage() {
 
                                     </td>
 
-                                    <td className="p-4">{fir.date}</td>
+                                    <td className="p-4 text-slate-600 dark:text-slate-300">{fir.date}</td>
 
-                                    <td className="p-4 flex gap-3">
+                                    <td className="p-4 flex items-center gap-3">
 
                                         <ViewFIRModal fir={fir} />
 
@@ -210,13 +234,13 @@ export default function FIRPage() {
                                             onClick={() =>
                                                 window.location.href = `/investigation/${fir.id}`
                                             }
-                                            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-lg"
+                                            className="bg-purple-50 dark:bg-purple-955/20 hover:bg-purple-100 dark:hover:bg-purple-900/20 border border-purple-200 dark:border-purple-800/40 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-lg text-sm transition font-medium cursor-pointer"
                                         >
                                             Investigate
                                         </button>
 
                                         <button
-                                            className="text-red-600"
+                                            className="text-red-600 dark:text-red-400 hover:text-red-750 dark:hover:text-red-300 text-sm transition ml-1 font-medium cursor-pointer"
                                             onClick={async () => {
 
                                                 if (!confirm("Delete this FIR?")) return;
@@ -251,15 +275,17 @@ export default function FIRPage() {
                     </tbody>
 
                 </table>
-                <div className="flex justify-between items-center">
+                
+                <div className="bg-slate-100/70 dark:bg-slate-900/80 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex justify-between items-center text-sm">
 
-                    <h2 className="text-lg font-semibold">
+                    <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                         FIR Records
                     </h2>
 
-                    <span className="text-gray-500">
+                    <span className="text-slate-500 dark:text-slate-400">
                         Showing {filteredFIRs.length} of {firs.length} FIRs
                     </span>
+
                 </div>
             </div>
 

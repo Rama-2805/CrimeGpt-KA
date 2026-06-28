@@ -3,52 +3,62 @@
 import { useEffect, useState } from "react";
 import api from "@/services/api";
 import { useTheme } from "@/context/ThemeContext";
-
 import {
+    ResponsiveContainer,
     BarChart,
     Bar,
     XAxis,
     YAxis,
     Tooltip,
     CartesianGrid,
-    ResponsiveContainer,
 } from "recharts";
 
-interface DistrictCrime {
-    district: string;
-    crimes: number;
+interface PriorityData {
+    priority: string;
+    count: number;
 }
 
-export default function DistrictCrimeChart() {
-    const [data, setData] = useState<DistrictCrime[]>([]);
+export default function PriorityChart() {
+    const [data, setData] = useState<PriorityData[]>([]);
     const { theme } = useTheme();
     const isDark = theme === "dark";
 
     useEffect(() => {
-        const fetchDistrictData = async () => {
+        const fetchData = async () => {
             try {
-                const response = await api.get("/dashboard/district-analysis");
+                const response = await api.get(
+                    "/dashboard/priority-analysis"
+                );
+
                 setData(response.data);
-            } catch (error) {
-                console.error("Failed to fetch district analysis:", error);
+
+            } catch (err) {
+                console.error(err);
             }
         };
 
-        fetchDistrictData();
+        fetchData();
     }, []);
 
     return (
         <div className="bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm dark:shadow-xl p-6">
+
             <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-6">
-                District-wise Crime Analysis
+                Priority Distribution
             </h2>
 
             <div className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
+
+                <ResponsiveContainer
+                    width="100%"
+                    height="100%"
+                >
+
                     <BarChart data={data}>
+
                         <CartesianGrid stroke={isDark ? "#1e293b" : "#e2e8f0"} strokeDasharray="3 3" opacity={0.4} />
 
-                        <XAxis dataKey="district" stroke={isDark ? "#64748b" : "#94a3b8"} tick={{ fill: isDark ? '#94a3b8' : '#475569' }} />
+                        <XAxis dataKey="priority" stroke={isDark ? "#64748b" : "#94a3b8"} tick={{ fill: isDark ? '#94a3b8' : '#475569' }} />
 
                         <YAxis stroke={isDark ? "#64748b" : "#94a3b8"} tick={{ fill: isDark ? '#94a3b8' : '#475569' }} />
 
@@ -61,10 +71,18 @@ export default function DistrictCrimeChart() {
                             }}
                         />
 
-                        <Bar dataKey="crimes" fill="#6366f1" radius={[6, 6, 0, 0]} />
+                        <Bar
+                            dataKey="count"
+                            fill="#06b6d4"
+                            radius={[6, 6, 0, 0]}
+                        />
+
                     </BarChart>
+
                 </ResponsiveContainer>
+
             </div>
+
         </div>
     );
 }

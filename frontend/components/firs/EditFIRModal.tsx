@@ -101,7 +101,7 @@ export default function EditFIRModal({
         return (
             <button
                 onClick={() => setOpen(true)}
-                className="text-green-600 hover:text-green-800"
+                className="text-emerald-605 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300 font-medium transition cursor-pointer"
             >
                 Edit
             </button>
@@ -109,16 +109,16 @@ export default function EditFIRModal({
     }
 
     return (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex justify-center items-center z-50 p-4">
 
-            <div className="bg-white rounded-xl p-6 w-125 space-y-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 w-125 space-y-4 text-slate-800 dark:text-slate-100 shadow-sm dark:shadow-2xl">
 
-                <h2 className="text-2xl font-bold">
+                <h2 className="text-2xl font-bold text-slate-808 dark:text-slate-100">
                     Edit FIR
                 </h2>
 
                 <input
-                    className="w-full border rounded p-3"
+                    className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 text-slate-805 dark:text-slate-100 rounded-lg p-3 outline-none focus:border-blue-500"
                     value={form.fir}
                     onChange={(e) =>
                         setForm({
@@ -129,7 +129,7 @@ export default function EditFIRModal({
                 />
 
                 <select
-                    className="w-full border rounded-lg p-3 text-black"
+                    className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 text-slate-805 dark:text-slate-100 rounded-lg p-3 outline-none focus:border-blue-500 cursor-pointer"
                     value={form.crime}
                     onChange={(e) =>
                         setForm({
@@ -138,12 +138,13 @@ export default function EditFIRModal({
                         })
                     }
                 >
-                    <option value="">Select Crime Type</option>
+                    <option value="" className="bg-white dark:bg-slate-950">Select Crime Type</option>
 
                     {crimeTypes.map((crime) => (
                         <option
                             key={crime}
                             value={crime}
+                            className="bg-white dark:bg-slate-955"
                         >
                             {crime}
                         </option>
@@ -151,23 +152,23 @@ export default function EditFIRModal({
                 </select>
 
                 <select
-                    className="w-full border rounded-lg p-3 text-black"
+                    className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 text-slate-805 dark:text-slate-100 rounded-lg p-3 outline-none focus:border-blue-500 cursor-pointer"
                     value={form.district}
                     onChange={(e) =>
                         setForm({ ...form, district: e.target.value })
                     }
                 >
-                    <option value="">Select District</option>
+                    <option value="" className="bg-white dark:bg-slate-955">Select District</option>
 
                     {districts.map((district) => (
-                        <option key={district} value={district}>
+                        <option key={district} value={district} className="bg-white dark:bg-slate-955">
                             {district}
                         </option>
                     ))}
                 </select>
 
                 <select
-                    className="w-full border rounded p-3"
+                    className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 text-slate-805 dark:text-slate-100 rounded-lg p-3 outline-none focus:border-blue-500 cursor-pointer"
                     value={form.status}
                     onChange={(e) =>
                         setForm({
@@ -176,14 +177,14 @@ export default function EditFIRModal({
                         })
                     }
                 >
-                    <option>Open</option>
-                    <option>Investigating</option>
-                    <option>Closed</option>
+                    <option className="bg-white dark:bg-slate-955">Open</option>
+                    <option className="bg-white dark:bg-slate-955">Investigating</option>
+                    <option className="bg-white dark:bg-slate-955">Closed</option>
                 </select>
 
                 <input
                     type="date"
-                    className="w-full border rounded p-3"
+                    className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-955 text-slate-850 dark:text-slate-100 rounded-lg p-3 outline-none focus:border-blue-500"
                     value={form.date}
                     onChange={(e) =>
                         setForm({
@@ -193,18 +194,18 @@ export default function EditFIRModal({
                     }
                 />
 
-                <div className="flex justify-end gap-3">
+                <div className="flex justify-end gap-3 pt-2">
 
                     <button
                         onClick={() => setOpen(false)}
-                        className="border px-4 py-2 rounded"
+                        className="border border-slate-205 dark:border-slate-808 text-slate-600 dark:text-slate-300 rounded-lg px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
                     >
                         Cancel
                     </button>
 
                     <button
                         onClick={submit}
-                        className="bg-blue-600 text-white px-4 py-2 rounded"
+                        className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 transition cursor-pointer shadow-sm"
                     >
                         Update
                     </button>

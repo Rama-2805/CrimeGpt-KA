@@ -37,10 +37,10 @@ export default function RecentCasesTable() {
     }, []);
 
     return (
-        <div className="mt-6 rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="mt-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/40 backdrop-blur-md shadow-sm dark:shadow-lg">
 
-            <div className="border-b px-6 py-4">
-                <h2 className="text-xl font-bold text-gray-900">
+            <div className="border-b border-slate-200 dark:border-slate-800 px-6 py-4">
+                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">
                     Recent FIRs
                 </h2>
             </div>
@@ -49,27 +49,27 @@ export default function RecentCasesTable() {
 
                 <Table>
 
-                    <TableHeader className="bg-gray-100">
+                    <TableHeader className="bg-slate-100/70 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800">
 
-                        <TableRow>
+                        <TableRow className="border-b border-slate-200 dark:border-slate-800 hover:bg-transparent">
 
-                            <TableHead className="text-gray-900 font-semibold">
+                            <TableHead className="text-slate-600 dark:text-slate-300 font-semibold">
                                 FIR No
                             </TableHead>
 
-                            <TableHead className="text-gray-900 font-semibold">
+                            <TableHead className="text-slate-600 dark:text-slate-300 font-semibold">
                                 Crime
                             </TableHead>
 
-                            <TableHead className="text-gray-900 font-semibold">
+                            <TableHead className="text-slate-600 dark:text-slate-300 font-semibold">
                                 District
                             </TableHead>
 
-                            <TableHead className="text-gray-900 font-semibold">
+                            <TableHead className="text-slate-600 dark:text-slate-300 font-semibold">
                                 Status
                             </TableHead>
 
-                            <TableHead className="text-gray-900 font-semibold">
+                            <TableHead className="text-slate-600 dark:text-slate-300 font-semibold">
                                 Date
                             </TableHead>
 
@@ -83,29 +83,29 @@ export default function RecentCasesTable() {
 
                             <TableRow
                                 key={item.fir}
-                                className="hover:bg-gray-50"
+                                className="border-b border-slate-200/60 dark:border-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition"
                             >
 
-                                <TableCell className="font-semibold text-gray-900">
+                                <TableCell className="font-semibold text-slate-800 dark:text-slate-100">
                                     {item.fir}
                                 </TableCell>
 
-                                <TableCell className="text-gray-700">
+                                <TableCell className="text-slate-600 dark:text-slate-300">
                                     {item.crime}
                                 </TableCell>
 
-                                <TableCell className="text-gray-700">
+                                <TableCell className="text-slate-600 dark:text-slate-300">
                                     {item.district}
                                 </TableCell>
 
                                 <TableCell>
 
                                     <span
-                                        className={`rounded-full px-3 py-1 text-xs font-semibold ${item.status === "Open"
-                                            ? "bg-red-100 text-red-700"
+                                        className={`rounded-full px-3 py-1 text-xs font-semibold border ${item.status === "Open"
+                                            ? "bg-red-100 text-red-600 border-red-200 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20"
                                             : item.status === "Closed"
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-yellow-100 text-yellow-700"
+                                                ? "bg-green-100 text-green-600 border-green-200 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20"
+                                                : "bg-yellow-100 text-yellow-600 border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20"
                                             }`}
                                     >
                                         {item.status}
@@ -113,7 +113,7 @@ export default function RecentCasesTable() {
 
                                 </TableCell>
 
-                                <TableCell className="text-gray-700">
+                                <TableCell className="text-slate-300">
                                     {item.date}
                                 </TableCell>
 

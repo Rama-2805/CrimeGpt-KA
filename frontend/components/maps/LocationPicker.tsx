@@ -3,6 +3,7 @@
 import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useTheme } from "@/context/ThemeContext";
 
 interface Props {
     latitude: number;
@@ -54,6 +55,8 @@ export default function LocationPicker({
     longitude,
     onLocationChange,
 }: Props) {
+    const { theme } = useTheme();
+    const isDark = theme === "dark";
 
     if (latitude === 0 || longitude === 0) {
         return null;
@@ -67,11 +70,16 @@ export default function LocationPicker({
                 height: "300px",
                 width: "100%",
                 borderRadius: "12px",
+                border: isDark ? "1px solid #1e293b" : "1px solid #e2e8f0"
             }}
         >
             <TileLayer
-                attribution="&copy; OpenStreetMap contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                key={theme}
+                attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors &copy; <a href='https://carto.com/attributions'>CARTO</a>"
+                url={isDark 
+                    ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                    : "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                }
             />
 
             <LocationMarker
