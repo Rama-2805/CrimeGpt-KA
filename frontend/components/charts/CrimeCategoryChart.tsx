@@ -63,7 +63,7 @@ export default function CrimeCategoryChart() {
                 Crime Categories
             </h2>
 
-            <div className="h-[420px]">
+            <div className="h-105">
 
                 <ResponsiveContainer width="100%" height="100%">
 

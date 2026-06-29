@@ -35,8 +35,8 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 relative overflow-hidden bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-50/20 dark:from-blue-955/20 via-slate-50 dark:via-slate-955 to-slate-50 dark:to-slate-955 transition-colors">
-            
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 relative overflow-hidden bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-blue-50/20 dark:from-blue-955/20 via-slate-50 dark:via-slate-955 to-slate-50 dark:to-slate-955 transition-colors">
+
             {/* Theme Toggle */}
             <div className="absolute top-6 right-6">
                 <button

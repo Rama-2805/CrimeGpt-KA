@@ -66,7 +66,7 @@ export default function OfficersPage() {
         <DashboardLayout>
             <div className="space-y-8">
                 {/* Header */}
-                <div className="mb-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 shadow-sm dark:shadow-xl relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50/20 dark:from-blue-955/20 via-white dark:via-slate-900 to-white dark:to-slate-900 transition-colors">
+                <div className="mb-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 shadow-sm dark:shadow-xl relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-blue-50/20 dark:from-blue-955/20 via-white dark:via-slate-900 to-white dark:to-slate-900 transition-colors">
                     <h1 className="text-3xl font-bold text-slate-808 dark:text-slate-100">
                         Officer Directory 👮
                     </h1>
@@ -97,13 +97,12 @@ export default function OfficersPage() {
                                     </div>
                                 </div>
                                 <span
-                                    className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${
-                                        officer.status === "Active"
+                                    className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${officer.status === "Active"
                                             ? "bg-emerald-100 text-emerald-600 border-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border-emerald-500/20"
                                             : officer.status === "On Duty"
-                                            ? "bg-blue-105 text-blue-600 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20"
-                                            : "bg-yellow-105 text-yellow-605 border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20"
-                                    }`}
+                                                ? "bg-blue-105 text-blue-600 border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20"
+                                                : "bg-yellow-105 text-yellow-605 border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20"
+                                        }`}
                                 >
                                     {officer.status}
                                 </span>
