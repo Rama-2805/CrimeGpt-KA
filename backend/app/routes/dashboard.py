@@ -10,9 +10,10 @@ router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 
 from sqlalchemy.orm import Session
 from fastapi import Depends
+from sqlalchemy import func
 
 from app.database.database import get_db
-from app.database.models import FIR
+
 
 
 @router.get("")
@@ -218,3 +219,63 @@ def ai_insights(db: Session = Depends(get_db)):
         "high_priority": high_priority,
         "open_cases": open_cases,
     }
+
+@router.get("/priority-analysis")
+def priority_analysis(db: Session = Depends(get_db)):
+
+    data = (
+        db.query(
+            FIR.priority,
+            func.count(FIR.id).label("count")
+        )
+        .group_by(FIR.priority)
+        .all()
+    )
+
+    return [
+        {
+            "priority": row.priority,
+            "count": row.count,
+        }
+        for row in data
+    ]
+
+@router.get("/status-analysis")
+def status_analysis(db: Session = Depends(get_db)):
+
+    data = (
+        db.query(
+            FIR.status,
+            func.count(FIR.id).label("count")
+        )
+        .group_by(FIR.status)
+        .all()
+    )
+
+    return [
+        {
+            "status": row.status,
+            "count": row.count,
+        }
+        for row in data
+    ]
+
+@router.get("/crime-analysis")
+def crime_analysis(db: Session = Depends(get_db)):
+
+    data = (
+        db.query(
+            FIR.crime,
+            func.count(FIR.id).label("count")
+        )
+        .group_by(FIR.crime)
+        .all()
+    )
+
+    return [
+        {
+            "crime": row.crime,
+            "count": row.count,
+        }
+        for row in data
+    ]

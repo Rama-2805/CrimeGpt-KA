@@ -12,6 +12,7 @@ from app.routes.assistant import router as assistant_router
 from app.routes.intelligence import router as intelligence_router
 from app.routes.upload import router as upload_router
 from app.routes.ai import router as ai_router
+from app.routes.report import router as report_router
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -49,6 +50,7 @@ app.include_router(upload_router)
 app.include_router(ai_router)
 app.include_router(investigation_router)
 app.include_router(investigations_router)
+app.include_router(report_router)
 
 @app.get("/")
 def root():

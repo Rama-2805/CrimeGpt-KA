@@ -64,9 +64,33 @@ def investigation_insights(data: InvestigationRequest):
             "Interview witnesses",
         ]
 
+    if data.priority.lower() == "critical":
+        response_time = "Immediate (Within 30 minutes)"
+        forensic = True
+
+    elif data.priority.lower() == "high":
+        response_time = "Within 2 Hours"
+        forensic = True
+
+    elif data.priority.lower() == "medium":
+        response_time = "Within 6 Hours"
+        forensic = False
+
+    else:
+        response_time = "Within 24 Hours"
+        forensic = False
+
     return {
         "risk": data.priority,
         "ipc": ipc,
         "units": units,
         "steps": steps,
+        "response_time": response_time,
+        "forensic_required": forensic,
+        "evidence_checklist": [
+            "Photographs",
+            "Fingerprints",
+            "Witness Statements",
+            "CCTV Footage",
+        ],
     }
